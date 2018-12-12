@@ -1,0 +1,169 @@
+#+TITLE:     Org Mode
+#+AUTHOR:    Zachery P DeLong
+#+EMAIL:     zach.delong@sageworks.com
+#+DATE:      2018-12-07 Fri
+#+OPTIONS: H:2 toc:t num:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation]
+#+BEAMER_THEME: Madrid
+#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT(Opt)
+
+
+#+STARTUP: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+#+BEAMER_THEME: Madrid
+
+#+BEAMER_HEADER: \subtitle{Or How Emacs Took Over Zach's Life}
+
+
+* Introduction
+** What is org-mode? 
+   #+ATTR_LATEX: :width .8\textwidth
+   [[file:basic-org.png]]
+   
+   - An outlining format
+   - Markup language similar to markdown [[https://beorgapp.com/blog/org-vs-markdown/][(Beorg on org vs Markdown)]]
+   - A "major mode" in Emacs [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][What is a major mode?]] ([[https://github.com/vscode-org-mode/vscode-org-mode/wiki][And]] [[https://github.com/jceb/vim-orgmode][in]] [[https://packagecontrol.io/packages/orgmode][other]] editors)
+     
+** Why care about org-mode?
+   - Let me tell you a story about Evernote...
+   - Org is designed as a markup language with plugins and systems
+   - I use org mode to...
+     - Plan projects
+     - Take meeting notes
+     - Manage projects and tasks
+     - Organize research
+     - Write papers
+     - Write this presentation
+   
+* Org-mode basics
+** Outlining syntax
+   
+   #+ATTR_LATEX: :width .8\textwidth
+   [[file:org-syntax.png]]
+   - The star (*) is the headline
+   - Add more stars to increase the header
+   
+** Markdown-ish composing syntax
+   - Use the dash (-) to begin a bulleted list
+   - You can create checklists with [ ] 
+   - Use This is basically 90% of what I use
+   
+* Org-mode the cool stuff
+** Task management
+   #+ATTR_LATEX: :width .6\textwidth
+   [[file:org-todo.png]]
+   - You can add a "state" to a header by pressing <C-c><C-t>
+     - This will put "TODO" next to it by default
+     - You can add/remove/change states in configuration!
+       - Ex: CONFIRM ON STAGING, MERGE TO TRUNK, IN PROGRESS,
+       - This is how I track tickets in my notes!
+         
+** Scheduling
+   - If you hilight a headline and press <C-s> you can assign a date!
+   - If you hilight a headline and press <C-d> you can set a deadline!
+     
+** The Almighty Agenda
+   - Okay, this is all well and good, but what good is scheduling in text files?
+   - The agenda will parse what files you tell it and assemble a day-by-day agenda!
+     - This is one of the most highly customizable parts of org
+     - You can search for specific tags, specific projects, it's fully
+       scriptable.  You can even write your own implementation entirely if you
+       need something weird.
+       
+** Capture templates
+   #+BEGIN_SRC elisp
+        ("j"
+         "Jira ticket"
+         entry
+         (file ,(concat org-directory inbox-org))
+         ,(concat "* TODO %? %\\1
+        [[" jira-link "%^{ticket}][%\\1]]"))))
+   #+END_SRC
+   
+   - Capture templates can be pulled up from anywhere in Emacs
+   - Someone interupt you?  hit a keybinding and have a template to take input!
+   - You can customize the template with prompts
+   - You can customize where it gets stored
+   - [[https://github.com/ZacheryPD/.dotfiles/blob/master/org/capture-templates.el][Examples]]
+
+
+** Refile
+   - Essentially, this is a mechanism for taking stuff from one org tree and
+     putting it into another
+   - I use this _constantly_
+
+* Using org mode
+** My org flow
+   - Conceptually, I have an inbox file, where all my capture templates go
+   - As I go about my day, I will use capture templates to note various things
+   - At some interval, I will parse my inbox file and put things in a more
+     "permanent" place
+   - As I get tickets, they get noted
+   - In my main task file, I have projects laid out, and statuses for various
+     ticket/task states
+
+** Org files
+   - inbox.org
+     - Entry point for everything
+   - notes.org
+     - Inbox for notes
+   - projects.org
+     - Documentation for all the products/projects I work on
+     - As I brainstorm things, this is where they wind up going
+   - todo.org
+     - A header for each of my projects
+     - Contains tasks
+       
+* Common plugins to use with Org
+** Evil
+   - I am a reilgious Vim-er
+   - Evil implements Vim inside Emacs.
+   - I literally can not imagine using Emacs without Evil.
+
+** Helm
+   - Strange plugin, don't worry about it
+     
+** Org-brain
+   [[file:org-brain.png]]
+   - Mind-mapping in org mode!
+   - Not even going to try to explain this one, but it's probably my favorite
+     
+** Magit
+   - (like magic)
+   - A git plugin for emacs!
+     
+** Export
+   - org-export lets you export org mode to other markups
+   - You can export to...
+     - HTML
+     - Markdown
+     - ODT
+     - LaTeX (if installed)
+   - There are plugins to export to a ton of different formats!
+       
+* Misc
+
+** How to configure
+   - In your home directory, you will have a .emacs file
+   - If no .emacs file, look for ~/.emacs.d/init.el
+   - The configs are all done in Elisp 
+     
+** Tutorials
+   - [[https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html][David O'Toole's Org tutorial]]
+   - [[https://www.youtube.com/playlist?list=PLcOtLpLKgmT9g05zIpoAka17mv15kObtD][Youtube playlist of stuff I found useful when learning]]
+   - [[https://emacscast.org][Emacs Cast]]
+     
+** Tools
+   - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Major-Modes.html][GNU Emacs]]
+   - [[https://github.com/hlissner/doom-emacs][DOOM Emacs]]
+   - [[http://spacemacs.org][Spacemacs]]
+   - [[https://github.com/ZacheryPD/.dotfiles][My configs]] (customized Spacemacs, but I'll go into this)
+
+* Summary
+
+** So why does this matter?
+   - It's all plain text
+   - It's portable
+   - There are mobile apps!  
