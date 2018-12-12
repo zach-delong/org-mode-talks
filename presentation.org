@@ -83,7 +83,7 @@
    #+END_SRC
    
    - Capture templates can be pulled up from anywhere in Emacs
-   - Someone interupt you?  hit a keybinding and have a template to take input!
+   - Someone interrupt you?  hit a keybinding and have a template to take input!
    - You can customize the template with prompts
    - You can customize where it gets stored
    - [[https://github.com/ZacheryPD/.dotfiles/blob/master/org/capture-templates.el][Examples]]
